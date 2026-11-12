@@ -7,7 +7,7 @@ Small, runnable Python scripts that go with my Medium stories. Each one is a sin
 | [`token_meter.py`](token_meter.py) | *Your AI Chat Charges You for Every Mile You’ve Already Driven* | Why message 40 of a chat costs ~7× message 1, what hidden reasoning tokens add, and how prompt caching cuts the bill |
 | [`rag_without_ai.py`](rag_without_ai.py) | *I Built a RAG System With No AI. It Broke in the Same Places Yours Does.* | A BM25 retriever in plain Python, and the four ways retrieval fails before a model ever sees the question |
 | [`best_of_n.py`](best_of_n.py) | *Six Ways AI Launches Make a Model Look Smarter Than It Is* | How pass@k, majority voting and best-of-many runs change a benchmark score without changing the model |
-| [`idempotency.py`](idempotency.py) | *What My Software Architecture Course Taught Me About AI Agents* | How a retrying agent refunds a customer three times, and the idempotency key that stops it |
+| [`idempotency.py`](idempotency.py) | *AI Agents Keep Failing in Ways My Architecture Textbook Already Named* | How a retrying agent refunds a customer three times, and the idempotency key that stops it |
 
 ## Run it
 

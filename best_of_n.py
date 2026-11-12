@@ -17,10 +17,17 @@ def pass_at_k(p, k):
 for k in [1, 4, 16, 64]:
     print(f"pass@{k:<3}: {pass_at_k(p, k).mean():.1%}")
 
-# majority vote of 32 samples: helps when the model is mostly right,
-# hurts nothing when it's mostly wrong, but costs 32x
-tries = rng.random((N_PROBLEMS, 32)) < p[:, None]
-print(f"majority of 32: {(tries.mean(axis=1) > 0.5).mean():.1%}")
+# majority vote of 32: the model answers 32 times and the most common answer wins.
+# Whether that helps depends on how much the wrong answers agree with each other.
+tries = rng.random((N_PROBLEMS, 32)) < p[:, None]          # which tries are right
+pick = np.random.default_rng(11).integers(0, 4, tries.shape)  # wrong tries pick 1 of 4 wrong answers
+right_votes = tries.sum(axis=1)
+def vote(n_wrong_options):
+    wrong = np.stack([((~tries) & (pick % n_wrong_options == w)).sum(axis=1)
+                      for w in range(n_wrong_options)], axis=1)
+    return (right_votes > wrong.max(axis=1)).mean()
+print(f"majority of 32, wrong answers all agree : {vote(1):.1%}")
+print(f"majority of 32, wrong answers spread 4 ways: {vote(4):.1%}")
 
 # cherry-picking: run the benchmark 10 times, report the best run
 runs = [(rng.random(N_PROBLEMS) < p).mean() for _ in range(10)]
